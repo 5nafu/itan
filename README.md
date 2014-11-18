@@ -18,7 +18,7 @@ Assumptions
 The script, at the moment, expects to find an encrypted file `iTAN.gpg` in the Users $HOME
 Unencrypted, the script expects a dict in the form:
 
-'''
+```
 {
 1: '225144',
 2: '209194',
@@ -33,7 +33,7 @@ Unencrypted, the script expects a dict in the form:
 11: '208301',
 [...]
 }
-'''
+```
 
 **REMEMBER: Put the actual TAN in quotes. Leading 0 will cause errors otherwise**
 
