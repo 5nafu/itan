@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 
-import ast, gnupg, getpass, sys
+import simplejson as json
+import gnupg
+import getpass
+import sys
+
 
 def gettan():
     ok = 0
@@ -11,7 +15,7 @@ def gettan():
             print "Please enter a number between 1 and 100"
         except:
             print "\nQuit"
-            sys.exit(0) 
+            sys.exit(0)
         else:
             if 1 <= tan <= 100:
                 ok = 1
@@ -27,7 +31,7 @@ CRYPTTAN = '/home/%s/iTAN.gpg' % username
 
 try:
     gpg = gnupg.GPG(gnupghome=GNUPGHOME)
-except Exeption as err:
+except Exception as err:
     print "could not start GnuPG: ", err
     sys.exit(255)
 
@@ -46,7 +50,9 @@ except:
 # Got all needed Info. Decrypting tanlist
 
 try:
-    print "TAN: %s" % ast.literal_eval(str(gpg.decrypt_file(open(CRYPTTAN, "rb"),passphrase=getpass.getpass())))[tan]
+    print "TAN: %s" % json.loads(
+        str(gpg.decrypt_file(open(CRYPTTAN, "rb"),
+            passphrase=getpass.getpass())))[tan]
 except Exception as err:
     print "Could not decrypt tan list. Wrong password?"
     print err
